@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title lang="ru">Таблица размеров обуви</title>
+
+</head>
+
+<body>
+
+
+<div align="center">
+    <h1>
+        List
+    </h1>
+</div>
+<script src="../../resources/js/like_button.js"></script>
+<!--    <script  src="../../resources/js/option.js"></script>-->
+<br/>
+<form action="/hello-parse" method="post">
+    <div align="center">
+        <select th:field="${list}" id="option1" name="option1" oninput="calculate()">
+            <option th:each="p: ${list}" th:value="${p.getValue()+'~'+p.getNominal()}" th:text="${p.getName()}+${p.getCharCode()}">List
+            </option>
+        </select>
+
+
+        <select th:field="${list}" id="option2" oninput="calculate()" >
+            <option th:each="p : ${list}" th:value="${p.getValue()+'~'+p.getNominal()}" th:text="${p.getName()}+${p.getCharCode()} ">
+                Рубль
+            </option>
+        </select>
+    </div>
+    <br/>
+
+    <br/>
+
+
+    <div align="center">
+        <input type="text" id="value" name="value" oninput="calculate()">
+        <input type="text" value="" id="value2" name="value2">
+
+
+        <br/>
+        <input type="hidden" id="flex" name="flex" value="">
+        <input type="hidden" id="key" name="target_value" value="">
+
+
+        <button type="submit" onclick="f()">CONVERT
+
+        </button>
+        <script th:inline="javascript" defer>
+            function f() {
+                var bills = new Object([[${list}]]);
+                var bill = bills[document.getElementById('option1').selectedIndex];
+
+
+                document.getElementById('flex').value = bill.key;
+                bill = bills[document.getElementById('option2').selectedIndex];
+                document.getElementById('key').value = bill.key;
+            }
+        </script>
+
+
+    </div>
+</form>
+
+
+<br/>
+
+</body>
+
+
+</html>
